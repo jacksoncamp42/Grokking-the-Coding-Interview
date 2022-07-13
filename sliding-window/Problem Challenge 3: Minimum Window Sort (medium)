@@ -1,0 +1,43 @@
+class ShortestWindowSort {
+
+  public static int sort(int[] arr) {
+    int low = 0;
+    int high = arr.length - 1;
+
+    //find first pair that is out of order from left
+    while(low < arr.length - 1 && arr[low] <= arr[low + 1]) {
+      low++;
+    }
+    //check if array is sorted
+    if(low == arr.length - 1) {
+      return 0;
+    }
+    //find first pair that is out of order from right
+    while(high > 0 && arr[high - 1] <= arr[high]) {
+      high--;
+    }
+
+    //find min and max in window
+    int subarrayMin = Integer.MAX_VALUE;
+    int subarrayMax = Integer.MIN_VALUE;
+    for (int i = low; i <= high; i++) {
+      subarrayMin = Math.min(arr[i], subarrayMin);
+      subarrayMax = Math.min(arr[i], subarrayMax);
+    }
+
+    //extend window (low) if number on left is greater than subarrayMin
+    for (int i = low - 1; i >= 0; i--) {
+      if (arr[i] >= subarrayMin) {
+        low = i;
+      }
+    }
+    //extend window (high) if number on right is less than subarrayMax
+    for (int i = high + 1; i < arr.length; i++) {
+      if (arr[i] <= subarrayMax) {
+        high = i;
+      }
+    }
+
+    return high - low + 1;
+  }
+}
