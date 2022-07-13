@@ -16,7 +16,7 @@ class MinimumMeetingRooms {
     if (meetings == null || meetings.size() == 0)
       return 0;
 
-    // sort the meetings by start timee
+    // sort the meetings by start time
     Collections.sort(meetings, (a, b) -> Integer.compare(a.start, b.start));
 
     int minRooms = 0;
